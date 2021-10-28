@@ -7,17 +7,8 @@ const resolvers = {
     user: async (parent, args, context) => {
       const user = User.findOne({username: args.username})
       .select('-__v -password')
-      .populate('pets')
-      .populate('followers')
-      .populate('following');
+      .populate('pets');
       return user;
-    },
-    followers: async(parent, args, context) => {
-      if (context.user) {
-        const user = await User.findOne({id: context.user._id})
-        .populate('followers');
-        return user.followers;
-      }
     }
   },
 
@@ -41,50 +32,53 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
-    followUser: async (parent, { username }, context) => {
+    editUser: async (parent, args, context) => {
       if (context.user) {
-        const followUser = await User.findOne({username: username});
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { following: followUser._id } },
-          { new: true }
-        );
-        await User.findByIdAndUpdate(
-          { _id: followUser._id },
-          { addToSet: { followers: context.user._id } }
-        );
 
-        return await User.findOne({username: context.user.username})
-          .select('-__v -password')
-          .populate('pets')
-          .populate('followers')
-          .populate('following');
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
-    unfollowUser: async (parent, { username }, context) => {
-      if (context.user) {
-        const user = await User.findOne({username: username});
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $pullAll: { following: [user._id] } }
+        return await User.findByIdAndUpdate(
+          {_id: context.user._id},
+          {
+            username: args.username,
+            email: args.email
+          },
+          {new: true}
         )
-        return await User.findOne({username: context.user.username})
         .select('-__v -password')
-        .populate('pets')
-        .populate('followers')
-        .populate('following');
+        .populate('pets');
+      }
+    },
+    deleteUser: async (parent, args, context) => {
+      if(context.user) {
+        return User.findByIdAndDelete(
+          {_id: context.user._id}
+        );
+      }
+    },
+    editPet: async (parent, args, context) => {
+      if (context.user) {
+        const pet = await Pet.findByIdAndUpdate(
+          {_id: args._id},
+          args,
+          {new: true}
+        );
+        return await User.findOne(
+          {username: context.user.username},
+        )
+        .populate('pets');
+      }
+    },
+    deletePet: async (parent, {_id}, context) => {
+      if(context.user) {
+        return await Pet.findByIdAndDelete(_id);
       }
     },
     login: async (parent, { username, password }) => {
       const user = await User.findOne({ username });
-
       if (!user) {
         throw new AuthenticationError('Incorrect credentials');
       }
 
       const correctPw = await user.isCorrectPassword(password);
-
       if (!correctPw) {
         throw new AuthenticationError('Incorrect credentials');
       }

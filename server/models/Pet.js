@@ -11,13 +11,26 @@ const petSchema = new Schema(
     type: {
         type: String,
         required: true,
-        trim: true
+        enum: ["Dog", "Cat"]
     },
     breed: {
         type: String,
-        required: false,
+        required: true,
         trim: true
-    }
+    },
+    weight: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    vaccinations: {
+        type: String,
+        required: false
+      },
+    medications: {
+        type: String,
+        required: false
+      }
   }
 );
 

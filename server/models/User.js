@@ -26,18 +26,6 @@ const userSchema = new Schema(
         ref: 'Pet'
       }
     ],
-    followers: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ],
-    following: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ]
   },
   {
     toJSON: {
