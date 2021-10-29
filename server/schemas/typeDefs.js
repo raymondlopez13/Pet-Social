@@ -34,7 +34,7 @@ const typeDefs = gql`
     editUser(username: String!, email: String!): User
     deleteUser: User
     deletePet(_id: ID!): Pet
-    editPet(_id: ID!, name: String!, type: String!, breed: String!, weight: String!, vaccinations: String, medications: String): User
+    editPet(_id: ID!, name: String, type: String, breed: String, weight: String, vaccinations: String, medications: String): User
     login(username: String!, password: String!): Auth
   }
 `;
