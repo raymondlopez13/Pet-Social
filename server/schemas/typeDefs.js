@@ -14,6 +14,7 @@ const typeDefs = gql`
   type User {
     username: String!
     email: String!
+    password: String!
     pets: [Pet]!
     followers: [User]!
     following: [User]!
