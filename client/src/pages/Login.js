@@ -36,11 +36,10 @@ function Login() {
     };
     return (
         <main>
-            <div>
-                <div>
-                <h4>Login</h4>
+            <div className='login-container'>
+                <h1>Login</h1>
                 <div className="card-body">
-                    <form onSubmit={formSubmit}>
+                    <form className='form-vertical' onSubmit={formSubmit}>
                         <input
                             placeholder="Your username"
                             name="username"
@@ -56,13 +55,12 @@ function Login() {
                             value={formState.password}
                             onChange={handleChange}
                         />
-                        <button type="submit">
+                        <button className='submit-btn' type="submit">
                             Submit
                         </button>
                     </form>
 
-                    {error && <div>Login failed</div>}
-                </div>
+                    {error && <h2 className='login-fail'>Login failed</h2>}
                 </div>
             </div>
         </main>

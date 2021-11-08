@@ -1,0 +1,15 @@
+.user {
+    text-align: center;
+    margin-top: 10px;
+}
+.pets {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    text-align: center;
+}
+.Pet, .Pet:visited {
+    color: black;
+    text-decoration: none;
+    margin: 5px 10px;
+}

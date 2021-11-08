@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Auth from '../utils/auth';
+import Profile from './Profile';
 
 function Home() {
     // const [ user, { error } ] = useQuery(USER);
@@ -8,7 +9,7 @@ function Home() {
     return (
         <div>
             {Auth.loggedIn() ? (
-                <h1>Hello {Auth.getProfile().data.username}</h1>
+                <Profile />
             ) : (
                 <div>Hello new user</div>
             )}

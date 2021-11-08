@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { MdPets } from 'react-icons/md';
 
 import Auth from '../utils/auth';
 
@@ -22,7 +23,7 @@ function Nav() {
         <header>
             <div>
                 <h1>
-                    <a href='/'>My Pets</a>
+                    <a href='/'><MdPets /></a>
                 </h1>
             </div>
             <button className='dropdown' onClick={dropdown}>
@@ -31,10 +32,7 @@ function Nav() {
             <nav className='hidden' id="nav">
                 {Auth.loggedIn() ? (
                     <>
-                        <Link to='/user'>
-                            User
-                        </Link>
-                        <a href='/' onClick={logout}>
+                        <a href='/' className='logout' onClick={logout}>
                             Logout
                         </a>
                     </>

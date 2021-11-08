@@ -14,9 +14,12 @@ header h1 a:visited {
 }
 nav {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     transition: 3s ease-in;
+}
+.logout {
+    margin: 0px 5px 0px auto;
 }
 nav a, nav Link {
     font-weight: 600;
@@ -64,8 +67,11 @@ nav a:visited, nav Link:visited {
         
     }
     nav a, nav Link {
-        animation: opacity 1.75s;
-        padding: 10px;
+        animation: opacity 2s;
+        padding: 10px 0px;
+    }
+    .logout {
+        margin: 0px;
     }
 }
 

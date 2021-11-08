@@ -1,0 +1,20 @@
+.login-container {
+    margin: 0px 0px 0px 10px;
+    font-size: 1.5em;
+}
+.form-vertical {
+    display: flex;
+    flex-direction: column;
+    max-width: 425px;
+}
+.submit-btn {
+    width: fit-content;
+}
+.form-vertical input, .submit-btn {
+    font-size: 1em;
+    margin: 10px 0px;
+    padding: 5px;
+}
+.login-fail {
+    margin: 0px !important;
+}
