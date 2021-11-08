@@ -5,6 +5,7 @@ import './nav.css';
 import 'animate.css';
 import './login.css';
 import './profile.css';
+import './pet.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

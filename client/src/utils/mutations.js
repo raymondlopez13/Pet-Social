@@ -68,8 +68,8 @@ export const EDIT_PET = gql `
 `;
 
 export const DELETE_PET = gql `
-    mutation deletePet($id: ID!) {
-        deletePet(_id: $id) {
+    mutation deletePet($_id: ID!) {
+        deletePet(_id: $_id) {
             name
         }
     }

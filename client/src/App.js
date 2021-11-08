@@ -3,6 +3,9 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
+import Pet from './pages/Pet';
+import EditPet from './pages/EditPet';
+import AddPet from './pages/AddPet';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -34,6 +37,10 @@ function App() {
               <Route exact path='/login' component={Login} />
               <Route exact path='/user' component={Profile} />
               <Route exact path='/signup' component={Signup} />
+              <Route exact path='/add-pet' component={AddPet} />
+              <Route exact path='/:name' component={Pet} />
+              <Route exact path='/:name/edit' component={EditPet} />
+              
             </Switch>
 
       </Router>

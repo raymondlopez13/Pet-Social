@@ -1,0 +1,42 @@
+.pet-info th {
+    text-align: start;
+    font-size: 2em;
+}
+.pet-info td {
+    text-align: end;
+    font-size: 2em;
+}
+.pet-info h1 {
+    font-size: 2.5em;
+}
+.pet-info {
+    margin: 10px auto auto 10px;
+}
+.back-btn {
+    margin: 10px auto auto 10px;
+}
+.pet-info input{
+    font-size: 1em;
+}
+.add-pet {
+    font-size: 1.5em;
+    margin: 10px 0px 0px 10px;
+    font-weight: 550;
+}
+.select {
+    font-size: 1em;
+}
+
+@media only screen and (max-width: 450px) {
+    .pet-info, tr, thead {
+        display: flex;
+        flex-direction: column;
+    }
+    .pet-info th, .pet-info td {
+        text-align: start;
+        font-size: 2em;
+    }
+    .pet-info input {
+        max-width: 90%;
+    }
+}
