@@ -26,11 +26,14 @@ const petSchema = new Schema(
     vaccinations: {
         type: String,
         required: false
-      },
+    },
     medications: {
         type: String,
         required: false
-      }
+    },
+    photo: {
+      type: String
+    }  
   }
 );
 

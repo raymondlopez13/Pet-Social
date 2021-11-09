@@ -9,22 +9,37 @@ import AddPet from './pages/AddPet';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
+import ApolloClient from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createUploadLink } from 'apollo-upload-client';
+import { setContext } from 'apollo-link-context';
+const httpLink = createUploadLink({ 
+  uri: 'http://localhost:3001/graphql',
+});
+const authLink = setContext((_, { headers } ) => {
+  const token = localStorage.getItem('id_token');
 
+  return {headers: {
+    ...headers,
+    authorization: token ? `Bearer ${token}` : ''
+  }}
+})
 const client = new ApolloClient({
-  request: operation => {
-    const token = localStorage.getItem('id_token');
+  // request: operation => {
+  //   const token = localStorage.getItem('id_token');
 
-    operation.setContext({
-      headers: {
-        authorization: token ? `Bearer ${token}` : ''
-      }
-    });
-  },
-  // development
-  uri: 'http://localhost:3001/graphql'
-  // production
-  // uri: '/graphql'
+  //   operation.setContext({
+  //     headers: {
+  //       authorization: token ? `Bearer ${token}` : ''
+  //     }
+  //   });
+  // },
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+  // // development
+  // uri: 'http://localhost:3001/graphql'
+  // // production
+  // // uri: '/graphql'
 });
 
 function App() {

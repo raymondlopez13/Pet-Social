@@ -5,6 +5,7 @@ const {typeDefs, resolvers} = require('./schemas');
 const {authMiddleware} = require('./utils/auth');
 const db = require('./config/connection');
 const PORT = process.env.PORT || 3001;
+const { graphqlUploadExpress } = require('graphql-upload');
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
@@ -14,6 +15,7 @@ async function startApolloServer(typeDefs, resolvers) {
     context: authMiddleware 
   });
   await server.start();
+  app.use(graphqlUploadExpress());
   server.applyMiddleware({ app });
 
   app.use(express.urlencoded({ extended: false }));
@@ -23,6 +25,7 @@ async function startApolloServer(typeDefs, resolvers) {
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));
   }
+  app.use("/images", express.static(path.join(__dirname, "images")));
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));

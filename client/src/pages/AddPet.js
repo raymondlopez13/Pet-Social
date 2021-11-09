@@ -1,29 +1,55 @@
 import React from 'react';
-import { ADD_PET } from '../utils/mutations';
+import { ADD_PET, UPLOAD_PHOTO } from '../utils/mutations';
 import { useMutation } from '@apollo/react-hooks';
-import { MdOutlineArrowBack } from 'react-icons/md';
+import { MdOutlineArrowBack, MdUploadFile } from 'react-icons/md';
 import { GiConfirmed } from 'react-icons/gi';
 
 function AddPet() {
     const [ addPet ] = useMutation(ADD_PET);
+    const [ uploadFile ] = useMutation(UPLOAD_PHOTO);
+    let file;
     function back(event) {
         event.preventDefault();
         window.location.href = `/`;
     }
     async function confirm(event) {
         event.preventDefault();
-        await addPet({
-            variables: {
-                name: document.getElementById('pet-name').value,
-                type: document.getElementById('select').value,
-                breed: document.getElementById('pet-breed').value,
-                weight: document.getElementById('pet-weight').value,
-                medications: document.getElementById('pet-medications').value,
-                vaccinations: document.getElementById('pet-vaccinations').value
-            }
-        });
+        if(file) {
+            await uploadFile({
+                variables: {file}
+            });
+            await addPet({
+                variables: {
+                    name: document.getElementById('pet-name').value,
+                    type: document.getElementById('select').value,
+                    breed: document.getElementById('pet-breed').value,
+                    weight: document.getElementById('pet-weight').value,
+                    medications: document.getElementById('pet-medications').value,
+                    vaccinations: document.getElementById('pet-vaccinations').value,
+                    photo: `http://localhost:3001/images/${file.name}`
+                }
+            });
+        } else {
+            await addPet({
+                variables: {
+                    name: document.getElementById('pet-name').value,
+                    type: document.getElementById('select').value,
+                    breed: document.getElementById('pet-breed').value,
+                    weight: document.getElementById('pet-weight').value,
+                    medications: document.getElementById('pet-medications').value,
+                    vaccinations: document.getElementById('pet-vaccinations').value,
+                }
+            });
+        }
+        
+        
         back(event);
 
+    }
+    const handleChange = async event => {
+        file = event.target.files[0];
+        if (!file) return 
+        
     }
     return (
         <main>
@@ -94,6 +120,15 @@ function AddPet() {
                     <td>
                         <input
                             id='pet-vaccinations'
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Photo</th>
+                    <td>
+                        <input
+                            type='file'
+                            onChange={handleChange}
                         />
                     </td>
                 </tr>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Auth from '../utils/auth';
 import { USER } from '../utils/queries';
-import { EDIT_PET, DELETE_PET } from '../utils/mutations';
+import { EDIT_PET, DELETE_PET, UPLOAD_PHOTO } from '../utils/mutations';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { MdOutlineArrowBack, MdDeleteForever } from 'react-icons/md';
 import { GiConfirmed } from 'react-icons/gi';
@@ -9,9 +9,11 @@ import { GiConfirmed } from 'react-icons/gi';
 function EditPet() {
     const [ editPet ] = useMutation(EDIT_PET);
     const [ deletePet ] = useMutation(DELETE_PET);
+    const [ uploadFile ] = useMutation(UPLOAD_PHOTO)
     const { loading, data } = useQuery(USER, {
         variables: {username: Auth.getProfile().data.username}
     });
+    let file;
     let pet = {};
     if (!loading) {
         const petName = window.location.href.split('/');
@@ -23,16 +25,33 @@ function EditPet() {
     }
     async function confirm(event) {
         event.preventDefault();
-        await editPet({
-            variables: {
-                _id: pet._id,
-                name: document.getElementById('pet-name').value,
-                breed: document.getElementById('pet-breed').value,
-                weight: document.getElementById('pet-weight').value,
-                medications: document.getElementById('pet-medications').value,
-                vaccinations: document.getElementById('pet-vaccinations').value
-            }
-        });
+        if(file) {
+            await uploadFile({
+                variables: {file}
+            });
+            await editPet({
+                variables: {
+                    _id: pet._id,
+                    name: document.getElementById('pet-name').value,
+                    breed: document.getElementById('pet-breed').value,
+                    weight: document.getElementById('pet-weight').value,
+                    medications: document.getElementById('pet-medications').value,
+                    vaccinations: document.getElementById('pet-vaccinations').value,
+                    photo: `http://localhost:3001/images/${file.name}`
+                }
+            });
+        } else {
+            await editPet({
+                variables: {
+                    _id: pet._id,
+                    name: document.getElementById('pet-name').value,
+                    breed: document.getElementById('pet-breed').value,
+                    weight: document.getElementById('pet-weight').value,
+                    medications: document.getElementById('pet-medications').value,
+                    vaccinations: document.getElementById('pet-vaccinations').value,
+                }
+            });
+        }
         back(event);
 
     }
@@ -44,6 +63,11 @@ function EditPet() {
             }
         });
         window.location.href = '/';
+    }
+    const handleChange = async event => {
+        file = event.target.files[0];
+        if (!file) return 
+        
     }
     return (
         <main>
@@ -112,6 +136,15 @@ function EditPet() {
                                 />
                             </td>
                         </tr>
+                        <tr>
+                    <th>Photo</th>
+                    <td>
+                        <input
+                            type='file'
+                            onChange={handleChange}
+                        />
+                    </td>
+                </tr>
 
                     </table>
 

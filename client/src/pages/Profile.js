@@ -30,10 +30,18 @@ function Profile() {
                         {data.user.pets.map(function(pet) {
                             return (
                                 <a href={`/${pet.name}`} className='Pet'>
-                                    {pet.type === 'Dog' ? (
-                                        <FaDog size='5em' color='gray' className='pet-icon'/>
+                                    {pet.photo ? (
+                                        <div className='img-container'>
+                                            <img src={pet.photo} alt='Pet' className="pet-img"/>
+                                        </div>
                                     ) : (
-                                        <FaCat size='5em' color='gray' className='pet-icon'/>
+                                        <div>
+                                            {pet.type === 'Dog' ? (
+                                                <FaDog size='5em' color='gray' className='pet-icon'/>
+                                            ) : (
+                                                <FaCat size='5em' color='gray' className='pet-icon'/>
+                                            )}
+                                        </div>
                                     )}
                                     <h1>{pet.name}</h1>
                                 </a>

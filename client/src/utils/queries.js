@@ -13,6 +13,7 @@ export const USER = gql `
                 weight
                 medications
                 vaccinations
+                photo
             }
         }
     } 

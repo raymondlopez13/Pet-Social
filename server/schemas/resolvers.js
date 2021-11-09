@@ -1,6 +1,11 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Pet } = require('../models');
 const { signToken } = require('../utils/auth');
+const {
+  GraphQLUpload
+} = require('graphql-upload');
+const { createWriteStream } = require('fs');
+const path = require('path');
 
 const resolvers = {
   Query: {
@@ -11,7 +16,7 @@ const resolvers = {
       return user;
     }
   },
-
+  Upload: GraphQLUpload,
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -31,6 +36,17 @@ const resolvers = {
       }
 
       throw new AuthenticationError('You need to be logged in!');
+    },
+    uploadFile: async (parent, { file } ) => {
+      const { createReadStream, filename } = await file;
+
+      await new Promise(res => {
+        createReadStream()
+          .pipe(createWriteStream(path.join(__dirname, "../images", filename)))
+          .on('close', res)
+      });
+
+      return  `http://localhost3001/images/${filename}`;
     },
     editUser: async (parent, args, context) => {
       if (context.user) {

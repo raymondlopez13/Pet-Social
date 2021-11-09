@@ -26,14 +26,15 @@ export const ADD_USER = gql `
 `;
 
 export const ADD_PET = gql`
-    mutation addPet($name:String!,$type:String!,$breed:String!, $weight: String! $vaccinations: String, $medications: String) {
-        addPet(name: $name, type: $type, breed: $breed, weight: $weight, vaccinations: $vaccinations, medications: $medications) {
+    mutation addPet($name:String!,$type:String!,$breed:String!, $weight: String! $vaccinations: String, $medications: String, $photo: String) {
+        addPet(name: $name, type: $type, breed: $breed, weight: $weight, vaccinations: $vaccinations, medications: $medications, photo: $photo) {
             name
             type
             breed
             weight
             vaccinations
-            medications 
+            medications
+            photo
         }
     }
 `;
@@ -51,8 +52,8 @@ export const EDIT_USER = gql `
 `;
 
 export const EDIT_PET = gql `
-    mutation editPet($_id: ID!, $name:String,$type:String,$breed:String, $weight: String $vaccinations: String, $medications: String) {
-        editPet(_id: $_id, name: $name, type: $type, breed: $breed, weight: $weight, vaccinations: $vaccinations, medications: $medications) {
+    mutation editPet($_id: ID!, $name:String,$type:String,$breed:String, $weight: String $vaccinations: String, $medications: String, $photo: String) {
+        editPet(_id: $_id, name: $name, type: $type, breed: $breed, weight: $weight, vaccinations: $vaccinations, medications: $medications, photo: $photo) {
             username
             email
             pets {
@@ -80,5 +81,10 @@ export const DELETE_USER = gql `
         deleteUser {
             username
         }
+    }
+`;
+export const UPLOAD_PHOTO = gql`
+    mutation uploadFile($file: Upload!) {
+        uploadFile(file: $file)
     }
 `;

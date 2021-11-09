@@ -13,3 +13,11 @@
     text-decoration: none;
     margin: 5px 10px;
 }
+.img-container {
+    border-radius: 50%;
+    height: 150px;
+    overflow: hidden;
+}
+.pet-img {
+    width: 150px;
+}
