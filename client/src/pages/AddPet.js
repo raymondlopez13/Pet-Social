@@ -129,6 +129,7 @@ function AddPet() {
                         <input
                             type='file'
                             onChange={handleChange}
+                            className='file-select'
                         />
                     </td>
                 </tr>

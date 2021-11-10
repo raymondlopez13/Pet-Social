@@ -142,6 +142,7 @@ function EditPet() {
                         <input
                             type='file'
                             onChange={handleChange}
+                            className='file-select'
                         />
                     </td>
                 </tr>
