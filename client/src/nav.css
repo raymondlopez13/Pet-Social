@@ -23,6 +23,7 @@ nav {
 }
 nav a, nav Link {
     font-weight: 600;
+    color: black;
 }
 nav a:visited, nav Link:visited {
     color: black;

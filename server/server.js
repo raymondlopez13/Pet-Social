@@ -6,6 +6,7 @@ const {authMiddleware} = require('./utils/auth');
 const db = require('./config/connection');
 const PORT = process.env.PORT || 3001;
 const { graphqlUploadExpress } = require('graphql-upload');
+const { uploadFile } = require('s3');
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();

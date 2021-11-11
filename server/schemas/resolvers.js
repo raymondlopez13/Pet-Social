@@ -46,7 +46,8 @@ const resolvers = {
           .on('close', res)
       });
 
-      return  `http://localhost3001/images/${filename}`;
+      // return  `http://localhost3001/images/${filename}`;
+      return `/images/${filename}`
     },
     editUser: async (parent, args, context) => {
       if (context.user) {
