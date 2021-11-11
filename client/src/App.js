@@ -14,7 +14,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createUploadLink } from 'apollo-upload-client';
 import { setContext } from 'apollo-link-context';
 const httpLink = createUploadLink({ 
-  //uri: 'http://localhost:3001/graphql',
+  // uri: 'http://localhost:3001/graphql',
   uri: '/graphql'
 });
 const authLink = setContext((_, { headers } ) => {
@@ -40,7 +40,7 @@ const client = new ApolloClient({
   // // development
   // uri: 'http://localhost:3001/graphql'
   // // production
-  // // uri: '/graphql'
+  // // uri: 'https://my-pets-raymondlopez13.herokuapp.com//graphql'
 });
 
 function App() {

@@ -37,7 +37,7 @@ function EditPet() {
                     weight: document.getElementById('pet-weight').value,
                     medications: document.getElementById('pet-medications').value,
                     vaccinations: document.getElementById('pet-vaccinations').value,
-                    photo: `http://localhost:3001/images/${file.name}`
+                    photo: `/images/${file.name}`
                 }
             });
         } else {
