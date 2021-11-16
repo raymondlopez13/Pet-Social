@@ -1,19 +1,32 @@
 import React from 'react';
 import { ADD_PET, UPLOAD_PHOTO } from '../utils/mutations';
 import { useMutation } from '@apollo/react-hooks';
-import { MdOutlineArrowBack, MdUploadFile } from 'react-icons/md';
+import { MdOutlineArrowBack } from 'react-icons/md';
 import { GiConfirmed } from 'react-icons/gi';
+import { back } from '../utils/addPetFunctions';
 
 function AddPet() {
     const [ addPet ] = useMutation(ADD_PET);
     const [ uploadFile ] = useMutation(UPLOAD_PHOTO);
     let file;
-    function back(event) {
-        event.preventDefault();
-        window.location.href = `/`;
-    }
     async function confirm(event) {
         event.preventDefault();
+        if(document.getElementById('pet-name').value === '' || null) {
+            formError('Name');
+            return
+        } 
+        else if(document.getElementById('select').value === '' || null) {
+            formError('Type');
+            return
+        }
+        else if(document.getElementById('pet-breed').value === '' || null) {
+            formError('Breed');
+            return
+        }
+        else if(document.getElementById('pet-weight').value === '' || null) {
+            formError('Weight');
+            return
+        }
         if(file) {
             await uploadFile({
                 variables: {file}
@@ -26,6 +39,7 @@ function AddPet() {
                     weight: document.getElementById('pet-weight').value,
                     medications: document.getElementById('pet-medications').value,
                     vaccinations: document.getElementById('pet-vaccinations').value,
+                    // photo: `http://localhost:3001/images/${file.name}`,
                     photo: `/images/${file.name}`
                 }
             });
@@ -47,9 +61,11 @@ function AddPet() {
 
     }
     const handleChange = async event => {
-        file = event.target.files[0];
-        if (!file) return 
-        
+        file = event.target.files[0];      
+    }
+
+    function formError(err) {
+        document.getElementById('formError').innerHTML = `${err} is a required field.`
     }
     return (
         <main>
@@ -58,6 +74,7 @@ function AddPet() {
                     <h1>
                         <input
                             id='pet-name'
+                            required
                         />
                     </h1>
                 </thead>
@@ -75,6 +92,7 @@ function AddPet() {
                     <td>
                         <input
                             id="pet-breed"
+                            required
                         />
                     </td>
                 </tr>
@@ -84,7 +102,7 @@ function AddPet() {
                         Type:
                     </th>
                     <td>
-                        <select className='select' id ='select'>
+                        <select className='select' id ='select' required>
                             <option value='Dog'>Dog</option>
                             <option value='Cat'>Cat</option>
                         </select>
@@ -98,6 +116,7 @@ function AddPet() {
                     <td>
                         <input
                             id="pet-weight"
+                            required
                         />
                     </td>
                 </tr>
@@ -132,6 +151,9 @@ function AddPet() {
                             className='file-select'
                         />
                     </td>
+                </tr>
+                <tr>
+                    <th id='formError'></th>
                 </tr>
 
             </table>

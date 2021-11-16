@@ -5,6 +5,7 @@ import { EDIT_PET, DELETE_PET, UPLOAD_PHOTO } from '../utils/mutations';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { MdOutlineArrowBack, MdDeleteForever } from 'react-icons/md';
 import { GiConfirmed } from 'react-icons/gi';
+import { back } from '../utils/addPetFunctions';
 
 function EditPet() {
     const [ editPet ] = useMutation(EDIT_PET);
@@ -19,12 +20,20 @@ function EditPet() {
         const petName = window.location.href.split('/');
         pet = data.user.pets.find(pet => pet.name === petName[petName.length - 2]);
     }
-    function back(event) {
-        event.preventDefault();
-        window.location.href = `/${document.getElementById('pet-name').value}`;
-    }
     async function confirm(event) {
         event.preventDefault();
+        if(document.getElementById('pet-name').value === '' || null) {
+            formError('Name');
+            return
+        } 
+        else if(document.getElementById('pet-breed').value === '' || null) {
+            formError('Breed');
+            return
+        }
+        else if(document.getElementById('pet-weight').value === '' || null) {
+            formError('Weight');
+            return
+        }
         if(file) {
             await uploadFile({
                 variables: {file}
@@ -37,6 +46,7 @@ function EditPet() {
                     weight: document.getElementById('pet-weight').value,
                     medications: document.getElementById('pet-medications').value,
                     vaccinations: document.getElementById('pet-vaccinations').value,
+                    // photo: `http://localhost:3001/images/${file.name}`
                     photo: `/images/${file.name}`
                 }
             });
@@ -65,9 +75,11 @@ function EditPet() {
         window.location.href = '/';
     }
     const handleChange = async event => {
-        file = event.target.files[0];
-        if (!file) return 
-        
+        file = event.target.files[0];  
+    }
+
+    function formError(err) {
+        document.getElementById('formError').innerHTML = `${err} is a required field.`
     }
     return (
         <main>
@@ -79,6 +91,7 @@ function EditPet() {
                                 <input
                                     id='pet-name'
                                     defaultValue={pet.name}
+                                    required
                                     />
                             </h1>
                         </thead>
@@ -97,6 +110,7 @@ function EditPet() {
                                 <input
                                     defaultValue={pet.breed}
                                     id="pet-breed"
+                                    required
                                 />
                             </td>
                         </tr>
@@ -109,6 +123,7 @@ function EditPet() {
                                 <input
                                     id="pet-weight"
                                     defaultValue={pet.weight}
+                                    required
                                 />
                             </td>
                         </tr>
@@ -138,14 +153,17 @@ function EditPet() {
                         </tr>
                         <tr>
                     <th>Photo</th>
-                    <td>
-                        <input
-                            type='file'
-                            onChange={handleChange}
-                            className='file-select'
-                        />
-                    </td>
-                </tr>
+                        <td>
+                            <input
+                                type='file'
+                                onChange={handleChange}
+                                className='file-select'
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th id='formError'></th>
+                    </tr>
 
                     </table>
 

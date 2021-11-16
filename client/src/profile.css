@@ -21,3 +21,6 @@
 .pet-img {
     width: 150px;
 }
+.loginOrSignup, .loginOrSignup:visited {
+    color: black;
+}

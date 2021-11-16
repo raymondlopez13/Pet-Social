@@ -11,7 +11,7 @@ function Home() {
             {Auth.loggedIn() ? (
                 <Profile />
             ) : (
-                <h1>Hello, click <a href='/login'>here</a> to login or <a href='signup'>here</a> to sign up!</h1>
+                <h1>Hello, click <a href='/login' className='loginOrSignup'>here</a> to login or <a href='signup' className='loginOrSignup'>here</a> to sign up!</h1>
             )}
         </div>
     );

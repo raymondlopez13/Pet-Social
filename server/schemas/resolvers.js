@@ -6,7 +6,7 @@ const {
 } = require('graphql-upload');
 const { createWriteStream } = require('fs');
 const path = require('path');
-const { uploadFile } = require('../s3');
+const { uploadFile, getFile } = require('../s3');
 
 const resolvers = {
   Query: {
@@ -42,11 +42,13 @@ const resolvers = {
       const { createReadStream, filename } = await file;
       await new Promise(res => {
         createReadStream()
+          // .pipe(createWriteStream(path.join(__dirname, "http://localhost:3001/images", filename)))
           .pipe(createWriteStream(path.join(__dirname, "../images", filename)))
           .on('close', res)
       });
       // const result = await uploadFile(filename, createReadStream);
-      return  `/images/${filename}`;    
+      return  `/images/${filename}`;
+      // return `http://localhost:3001/images/${filename}`    
     },
     editUser: async (parent, args, context) => {
       if (context.user) {

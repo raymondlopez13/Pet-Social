@@ -24,6 +24,14 @@ function uploadFile(filename, createReadStream) {
 }
 
 // downloads a file from s3
+function getFile(fileKey) {
+    const downloadPrams = {
+        Key: fileKey,
+        Bucket: bucketName
+    }
 
+    return s3.getObject(downloadParams).createReadStream();
+}
 
 exports.uploadFile = uploadFile;
+exports.getFile = getFile;
