@@ -28,7 +28,7 @@ function AddPet() {
             return
         }
         if(file) {
-            await uploadFile({
+            const photoUpload = await uploadFile({
                 variables: {file}
             });
             await addPet({
@@ -39,8 +39,7 @@ function AddPet() {
                     weight: document.getElementById('pet-weight').value,
                     medications: document.getElementById('pet-medications').value,
                     vaccinations: document.getElementById('pet-vaccinations').value,
-                    // photo: `http://localhost:3001/images/${file.name}`,
-                    photo: `/images/${file.name}`
+                    photo: photoUpload.data.uploadFile,
                 }
             });
         } else {

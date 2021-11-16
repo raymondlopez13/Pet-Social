@@ -11,7 +11,7 @@ const { uploadFile, getFile } = require('../s3');
 const resolvers = {
   Query: {
     user: async (parent, args, context) => {
-      const user = User.findOne({username: args.username})
+      const user = await User.findOne({username: args.username})
       .select('-__v -password')
       .populate('pets');
       return user;
@@ -46,9 +46,8 @@ const resolvers = {
           .pipe(createWriteStream(path.join(__dirname, "../images", filename)))
           .on('close', res)
       });
-      // const result = await uploadFile(filename, createReadStream);
-      return  `/images/${filename}`;
-      // return `http://localhost:3001/images/${filename}`    
+      const result = await uploadFile(filename, createReadStream);
+      return  result.Location; 
     },
     editUser: async (parent, args, context) => {
       if (context.user) {
