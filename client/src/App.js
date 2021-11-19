@@ -13,9 +13,9 @@ import ApolloClient from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createUploadLink } from 'apollo-upload-client';
 import { setContext } from 'apollo-link-context';
-const httpLink = createUploadLink({ 
-  uri: 'http://localhost:3001/graphql',
-  // uri: '/graphql'
+const httpLink = createUploadLink({
+  // uri: 'http://localhost:3001/graphql',
+  uri: '/graphql'
 });
 const authLink = setContext((_, { headers } ) => {
   const token = localStorage.getItem('id_token');
@@ -56,7 +56,7 @@ function App() {
               <Route exact path='/add-pet' component={AddPet} />
               <Route exact path='/:name' component={Pet} />
               <Route exact path='/:name/edit' component={EditPet} />
-              
+
             </Switch>
 
       </Router>
