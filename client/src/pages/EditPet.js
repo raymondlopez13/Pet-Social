@@ -67,12 +67,14 @@ function EditPet() {
     }
     async function deleteMyPet(event) {
         event.preventDefault();
-        const key = pet.photo.split('/');
-        await deleteFile({
-            variables: {
-                fileKey: key[key.length - 1]
-            }
-        });
+        if(pet.photo) {
+            const key = pet.photo.split('/');
+            await deleteFile({
+                variables: {
+                    fileKey: key[key.length - 1]
+                }
+            });
+        }
         await deletePet({
             variables: {
                 _id: pet._id
