@@ -102,6 +102,18 @@ function EditPet() {
                         </tr>
 
                         <tr>
+                            <th>Photo:</th>
+                            <td className='file'>
+                                <input
+                                    type='file'
+                                    onChange={handleChange}
+                                    className='file-select'
+                                />
+                            </td>
+                        </tr>
+                        <br />
+
+                        <tr>
                             <th>
                                 Breed:
                             </th>
@@ -150,16 +162,7 @@ function EditPet() {
                                 />
                             </td>
                         </tr>
-                        <tr>
-                    <th>Photo</th>
-                        <td>
-                            <input
-                                type='file'
-                                onChange={handleChange}
-                                className='file-select'
-                            />
-                        </td>
-                    </tr>
+                    
                     <tr>
                         <th id='formError'></th>
                     </tr>
@@ -172,7 +175,7 @@ function EditPet() {
                     <button onClick={confirm} className='back-btn'>
                         <GiConfirmed size='2em' />
                     </button>
-                    <button onClick={deleteMyPet} className='back-btn'>
+                    <button onClick={deleteMyPet} className='back-btn delete-btn'>
                         <MdDeleteForever size='2em' />
                     </button>
                 </div>

@@ -85,6 +85,18 @@ function AddPet() {
                 </tr>
 
                 <tr>
+                    <th>Photo:</th>
+                    <td>
+                        <input
+                            type='file'
+                            onChange={handleChange}
+                            className='file-select'
+                        />
+                    </td>
+                </tr>
+                <br/>
+
+                <tr>
                     <th>
                         Breed:
                     </th>
@@ -141,16 +153,7 @@ function AddPet() {
                         />
                     </td>
                 </tr>
-                <tr>
-                    <th>Photo</th>
-                    <td>
-                        <input
-                            type='file'
-                            onChange={handleChange}
-                            className='file-select'
-                        />
-                    </td>
-                </tr>
+                
                 <tr>
                     <th id='formError'></th>
                 </tr>

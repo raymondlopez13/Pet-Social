@@ -7,6 +7,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
     text-align: center;
+    margin-top: 20px;
 }
 .Pet, .Pet:visited {
     color: black;
@@ -14,13 +15,24 @@
     margin: 5px 10px;
 }
 .img-container {
-    border-radius: 50%;
+    width: 150px;
     height: 150px;
-    overflow: hidden;
+    border: 5px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .pet-img {
+    border-radius: 50%;
+    height: 150px;
     width: 150px;
+    object-fit: cover;
+    border: 1px solid rgb(255, 255, 255);
 }
 .loginOrSignup, .loginOrSignup:visited {
     color: black;
+}
+.landing-container {
+    text-align: center;
 }

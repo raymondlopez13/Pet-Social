@@ -33,7 +33,9 @@ function Pet() {
                             </h1>
                         </thead>
                         
-
+                        <tr className='img-container pet-profile-img-container'>
+                            <img src={pet.photo} className='pet-img' alt='pet'/>
+                        </tr>
                         <tr>
                             <th>
                                 Breed:
