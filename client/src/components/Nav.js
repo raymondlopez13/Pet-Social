@@ -26,7 +26,7 @@ function Nav() {
                     <a href='/'><MdPets /></a>
                 </h1>
             </div>
-            <button className='dropdown' onClick={dropdown}>
+            <button className='dropdown' onClick={dropdown} id ='hamburger'>
                 <GiHamburgerMenu />
             </button>
             <nav className='hidden' id="nav">
