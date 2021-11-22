@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Auth from '../utils/auth';
 import { FaUserCircle, FaDog, FaCat } from 'react-icons/fa';
 import { USER } from '../utils/queries';
 import { useQuery } from '@apollo/react-hooks';
-import { MdCreate } from 'react-icons/md';
 
 function Profile() {
     const { loading, data } = useQuery(USER, {

@@ -34,5 +34,14 @@ function getFile(fileKey) {
     return s3.getObject(downloadParams).createReadStream();
 }
 
+function deleteFileS3(fileKey) {
+    const params = {
+        Bucket: bucketName,
+        Key: fileKey
+    }
+    s3.deleteObject(params).promise();
+}
+
 exports.uploadFile = uploadFile;
 exports.getFile = getFile;
+exports.deleteFileS3 = deleteFileS3;

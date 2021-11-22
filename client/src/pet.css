@@ -36,10 +36,6 @@
     color: red;
     text-decoration: underline;
 }
-.file {
-    display: flex;
-    justify-content: end;
-}
 @media only screen and (max-width: 450px) {
     .pet-info, tr, thead {
         display: flex;

@@ -6,7 +6,7 @@ const {
 } = require('graphql-upload');
 const { createWriteStream } = require('fs');
 const path = require('path');
-const { uploadFile, getFile } = require('../s3');
+const { uploadFile, deleteFileS3 } = require('../s3');
 
 const resolvers = {
   Query: {
@@ -46,8 +46,20 @@ const resolvers = {
           .pipe(createWriteStream(path.join(__dirname, "../images", filename)))
           .on('close', res)
       });
-      const result = await uploadFile(filename, createReadStream);
+      let name = filename.replace(/\s/g, '');
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0');
+      var yyyy = today.getFullYear();
+
+      today = mm + '-' + dd + '-' + yyyy;
+      name = today + '-' + name;
+      const result = await uploadFile(name, createReadStream);
       return  result.Location; 
+    },
+    deleteFile: async (parent, { fileKey }, context) => {
+      await deleteFileS3(fileKey);
+      return '?';
     },
     editUser: async (parent, args, context) => {
       if (context.user) {

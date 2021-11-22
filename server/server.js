@@ -4,6 +4,7 @@ const path = require('path');
 const {typeDefs, resolvers} = require('./schemas');
 const {authMiddleware} = require('./utils/auth');
 const db = require('./config/connection');
+const cors = require('cors');
 const PORT = process.env.PORT || 3001;
 const { graphqlUploadExpress } = require('graphql-upload');
 
@@ -20,6 +21,7 @@ async function startApolloServer(typeDefs, resolvers) {
 
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
+  app.use(cors());
 
   // Serve up static assets
   if (process.env.NODE_ENV === 'production') {

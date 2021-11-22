@@ -88,3 +88,9 @@ export const UPLOAD_PHOTO = gql`
         uploadFile(file: $file)
     }
 `;
+
+export const DELETE_PHOTO = gql `
+    mutation deleteFile($fileKey: String!) {
+        deleteFile(fileKey: $fileKey)
+    }
+`;

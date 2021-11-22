@@ -1,7 +1,7 @@
 import React from 'react';
 import Auth from '../utils/auth';
 import { USER } from '../utils/queries';
-import { EDIT_PET, DELETE_PET, UPLOAD_PHOTO } from '../utils/mutations';
+import { EDIT_PET, DELETE_PET, UPLOAD_PHOTO, DELETE_PHOTO } from '../utils/mutations';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { MdOutlineArrowBack, MdDeleteForever } from 'react-icons/md';
 import { GiConfirmed } from 'react-icons/gi';
@@ -10,7 +10,8 @@ import { back } from '../utils/addPetFunctions';
 function EditPet() {
     const [ editPet ] = useMutation(EDIT_PET);
     const [ deletePet ] = useMutation(DELETE_PET);
-    const [ uploadFile ] = useMutation(UPLOAD_PHOTO)
+    const [ uploadFile ] = useMutation(UPLOAD_PHOTO);
+    const [ deleteFile ] = useMutation(DELETE_PHOTO);
     const { loading, data } = useQuery(USER, {
         variables: {username: Auth.getProfile().data.username}
     });
@@ -66,6 +67,12 @@ function EditPet() {
     }
     async function deleteMyPet(event) {
         event.preventDefault();
+        const key = pet.photo.split('/');
+        await deleteFile({
+            variables: {
+                fileKey: key[key.length - 1]
+            }
+        });
         await deletePet({
             variables: {
                 _id: pet._id

@@ -41,6 +41,7 @@ const typeDefs = gql`
     editPet(_id: ID!, name: String, type: String, breed: String, weight: String, vaccinations: String, medications: String, photo: String): User
     login(username: String!, password: String!): Auth
     uploadFile(file: Upload!): String
+    deleteFile(fileKey: String!): String!
   }
 `;
 
